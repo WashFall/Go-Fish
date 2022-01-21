@@ -1,4 +1,4 @@
-# Go-Fish
+# Go Fish
 Go Fish is a mobile game based on the classic card game of the same name!
 
 This is a school project where the goal is to build a mobile game, and connect it to a database (Firebase in this case).
