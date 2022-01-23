@@ -11,13 +11,25 @@ public class CardDealer : MonoBehaviour
 
     GenerateDeck generateDeck;
     List<PlayingCard> deck;
+    List<GameObject> cardPool;
 
     void Start()
     {
         generateDeck = GetComponent<GenerateDeck>();
-        deck = generateDeck.Generator(Card);
+        InstPool(52);
+        deck = generateDeck.Generator(cardPool);
     }
-    
+
+    private void InstPool(int amount)
+    {
+        cardPool = new List<GameObject>();
+        for(int i = 0; i < amount; i++)
+        {
+            cardPool.Add(Instantiate(Card, new Vector3(0, 0, 0), transform.rotation));
+            cardPool[i].SetActive(false);
+        }
+    }
+
     public void Dealer()
     {
         foreach (Player player in players)
@@ -30,7 +42,7 @@ public class CardDealer : MonoBehaviour
                 player.cards.Add(Deal());
             }
         }
-        
+
         foreach(Player player in players)
             player.cards.Sort((x, y) => x.number.CompareTo(y.number));
 

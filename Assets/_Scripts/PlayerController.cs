@@ -5,17 +5,18 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     CardDealer dealer;
+    [SerializeField]
     bool display = true;
     Player player = new Player();
-    List<GameObject> displayedCards;
-
     delegate bool InvertBool(bool x);
     InvertBool invertbool = x => !x;
+    int turn = 0;
+    int flip = 180;
 
     private void Start()
     {
         dealer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CardDealer>();
-        if(gameObject.CompareTag("Player"))
+        if (gameObject.CompareTag("Player"))
         {
             display = false;
         }
@@ -23,14 +24,15 @@ public class PlayerController : MonoBehaviour
 
     public void Ready()
     {
+        // TODO: add observer code to improve the process
         dealer.players.Add(player);
     }
 
     public void ShowHand()
     {
+        // TODO: add observer code to improve the process
+
         float position = 0.5f;
-        Debug.Log(player.Name);
-        displayedCards = new List<GameObject>();
         if (display)
         {
             foreach (PlayingCard card in player.cards)
@@ -38,9 +40,10 @@ public class PlayerController : MonoBehaviour
                 Vector3 screenScale = new Vector3(Screen.width / player.cards.Count * position, Screen.height / 5, 0);
                 Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
                 cardPos.z = 0;
-                Sprite cardFace = Resources.Load<Sprite>(card.cardName);
-                card.card.GetComponent<SpriteRenderer>().sprite = cardFace;
-                displayedCards.Add(Instantiate(card.card, cardPos, transform.rotation));
+                //Sprite cardFace = Resources.Load<Sprite>(card.cardName);
+                //card.card.GetComponent<SpriteRenderer>().sprite = cardFace;
+                card.card.transform.position = cardPos;
+                card.card.SetActive(true);
                 position++;
             }
         }
@@ -48,13 +51,32 @@ public class PlayerController : MonoBehaviour
 
     public void SwitchHand()
     {
-        foreach(GameObject card in displayedCards)
+        // TODO: add observer code to improve the process
+        turn++;
+
+        foreach (PlayingCard card in player.cards)
         {
-            Destroy(card);
+            card.card.SetActive(false);
         }
 
-        display = invertbool(display);
+        if (display)
+            display = invertbool(display);
+        
+        if(turn % dealer.players.Count == dealer.players.IndexOf(player))
+            display = invertbool(display);
 
         ShowHand();
+    }
+
+    public void TurnCards()
+    {
+        foreach(PlayingCard card in player.cards)
+        {
+            card.card.transform.rotation = Quaternion.Euler(0, flip, 0);
+        }
+        if (flip == 180)
+            flip = 0;
+        else if (flip == 0)
+            flip = 180;
     }
 }

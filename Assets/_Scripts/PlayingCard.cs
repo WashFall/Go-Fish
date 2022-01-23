@@ -8,6 +8,7 @@ public class PlayingCard
     public int number;
     public string cardName;
     public GameObject card;
+    public Texture2D cardFace;
 
     public PlayingCard(int number, int suit, GameObject card)
     {
