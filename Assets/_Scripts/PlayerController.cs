@@ -112,6 +112,5 @@ public class PlayerController : MonoBehaviour
                 originalPos, 40 * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
-        card.card.transform.position = originalPos;
     }
 }
