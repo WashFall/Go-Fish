@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    int turn = 0;
     CardDealer dealer;
-    [SerializeField]
     bool display = true;
     Player player = new Player();
+
     delegate bool InvertBool(bool x);
-    InvertBool invertbool = x => !x;
-    int turn = 0;
-    int flip = 180;
+    InvertBool invertBool = x => !x;
 
     private void Start()
     {
@@ -35,13 +34,11 @@ public class PlayerController : MonoBehaviour
         float position = 0.5f;
         if (display)
         {
-            foreach (PlayingCard card in player.cards)
+            foreach (PlayingCard card in player.Cards)
             {
-                Vector3 screenScale = new Vector3(Screen.width / player.cards.Count * position, Screen.height / 5, 0);
+                Vector3 screenScale = new Vector3(Screen.width / player.Cards.Count * position, Screen.height / 5, 0);
                 Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
                 cardPos.z = 0;
-                //Sprite cardFace = Resources.Load<Sprite>(card.cardName);
-                //card.card.GetComponent<SpriteRenderer>().sprite = cardFace;
                 card.card.transform.position = cardPos;
                 card.card.SetActive(true);
                 position++;
@@ -54,29 +51,67 @@ public class PlayerController : MonoBehaviour
         // TODO: add observer code to improve the process
         turn++;
 
-        foreach (PlayingCard card in player.cards)
+        foreach (PlayingCard card in player.Cards)
         {
             card.card.SetActive(false);
         }
 
         if (display)
-            display = invertbool(display);
+            display = invertBool(display);
         
         if(turn % dealer.players.Count == dealer.players.IndexOf(player))
-            display = invertbool(display);
+            display = invertBool(display);
 
         ShowHand();
+        foreach(PlayingCard card in player.Cards)
+            StartCoroutine(CardShake(card));
     }
 
     public void TurnCards()
     {
-        foreach(PlayingCard card in player.cards)
+        foreach(PlayingCard card in player.Cards)
         {
-            card.card.transform.rotation = Quaternion.Euler(0, flip, 0);
+            StartCoroutine(CardRotate(card));
         }
-        if (flip == 180)
-            flip = 0;
-        else if (flip == 0)
-            flip = 180;
+    }
+
+    private IEnumerator CardRotate(PlayingCard card)
+    {
+        float startTime = Time.time;
+        while(Time.time - startTime < 0.48f)
+        {
+            card.card.transform.Rotate(0, 180 * 2 * Time.fixedDeltaTime, 0);
+            yield return new WaitForFixedUpdate();
+        }
+    }
+
+    private IEnumerator CardShake(PlayingCard card)
+    {
+        Vector3 originalPos = card.card.transform.position;
+        float startTime = Time.time;
+
+        while(Time.time - startTime < 0.25f)
+        {
+            card.card.transform.position = Vector3.MoveTowards(card.card.transform.position,
+                new Vector3(0, originalPos.y, originalPos.z), 40 * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+
+        while(Time.time - startTime < 0.50f)
+        {
+            Vector3 shakePos = Random.insideUnitSphere * Time.fixedDeltaTime * 5;
+            shakePos.y = originalPos.y;
+            shakePos.z = originalPos.z;
+            card.card.transform.position = shakePos;
+            yield return new WaitForFixedUpdate();
+        }
+
+        while (Time.time - startTime < 0.75f)
+        {
+            card.card.transform.position = Vector3.MoveTowards(card.card.transform.position, 
+                originalPos, 40 * Time.fixedDeltaTime);
+            yield return new WaitForFixedUpdate();
+        }
+        card.card.transform.position = originalPos;
     }
 }
