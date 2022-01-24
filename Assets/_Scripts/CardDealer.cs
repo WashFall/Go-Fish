@@ -15,6 +15,7 @@ public class CardDealer : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 90;
         generateDeck = GetComponent<GenerateDeck>();
         InstPool(52);
         deck = generateDeck.Generator(cardPool);
@@ -25,26 +26,26 @@ public class CardDealer : MonoBehaviour
         cardPool = new List<GameObject>();
         for(int i = 0; i < amount; i++)
         {
-            cardPool.Add(Instantiate(Card, new Vector3(0, 0, 0), transform.rotation));
+            cardPool.Add(Instantiate(Card, new Vector3(), transform.rotation));
             cardPool[i].SetActive(false);
         }
     }
 
     public void Dealer()
     {
-        foreach (Player player in players)
-            player.Name = "player" + players.IndexOf(player);
-
         for (int i = 0; i < 7; i++)
         {
             foreach (Player player in players)
             {
-                player.cards.Add(Deal());
+                player.Cards.Add(Deal());
             }
         }
 
         foreach(Player player in players)
-            player.cards.Sort((x, y) => x.number.CompareTo(y.number));
+        {
+            player.Name = "player" + players.IndexOf(player); // TODO: move this line 
+            player.Cards.Sort((x, y) => x.number.CompareTo(y.number));
+        }
 
         //foreach (Player player in players)
         //{
