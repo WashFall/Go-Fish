@@ -27,7 +27,7 @@ public class CardDealer : MonoBehaviour
         cardPool = new List<GameObject>();
         for(int i = 0; i < amount; i++)
         {
-            cardPool.Add(Instantiate(Card, new Vector3(), transform.rotation));
+            cardPool.Add(Instantiate(Card, new Vector3(-0.00680274004f, -3, 0), transform.rotation));
             cardPool[i].SetActive(false);
         }
     }

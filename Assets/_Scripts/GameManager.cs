@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     public void OnCardSelected(GameObject card)
     {
-        print(card.GetComponent<PlayingCard>().cardName);
+        
     }
 }
 
