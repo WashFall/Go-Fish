@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -7,16 +6,20 @@ using UnityEngine;
 public class CardDealer : MonoBehaviour
 {
     public GameObject Card;
-    public List<Player> players = new List<Player>();
 
     GenerateDeck generateDeck;
     List<GameObject> cardPool;
+    List<Player> players;
 
     void Start()
     {
         generateDeck = GetComponent<GenerateDeck>();
         InstPool(52);
         generateDeck.Generator(cardPool);
+    }
+    public void PlayerCountListener(List<Player> players)
+    {
+        this.players = players;
     }
 
     private void InstPool(int amount)

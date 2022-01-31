@@ -1,95 +1,60 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    int turn = 0;
-    CardDealer dealer;
-    bool display = true;
-    Player player = new Player();
+    List<Player> players;
 
-    delegate bool InvertBool(bool x);
-    InvertBool invertBool = x => !x;
-
-    private void Start()
+    public void PlayerCountListener(List<Player> players)
     {
-        dealer = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CardDealer>();
-        if (gameObject.CompareTag("Player"))
-        {
-            display = false;
-        }
+        this.players = players;
     }
 
-    public void Ready()
-    {
-        // TODO: add observer code to improve the process
-        dealer.players.Add(player);
-    }
-
-    public void ShowHand()
+    public void ShowHand(Player player)
     {
         // TODO: add observer code to improve the process
 
         float position = 0.5f;
-        if (display)
+        foreach (GameObject card in player.Cards)
         {
-            foreach (GameObject card in player.Cards)
-            {
-                Vector3 screenScale = new Vector3(Screen.width / player.Cards.Count * position, Screen.height / 5, 0);
-                Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
-                cardPos.z = 0;
-                card.transform.position = cardPos;
-                card.SetActive(true);
-                position++;
-            }
+            Vector3 screenScale = new Vector3(Screen.width / player.Cards.Count * position, Screen.height / 5, 0);
+            Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
+            cardPos.z = 0;
+            card.transform.position = cardPos;
+            card.SetActive(true);
+            position++;
         }
     }
 
-    public void SwitchHand()
+    public void SwitchPlayer(Player player, int turn)
     {
-        // TODO: add observer code to improve the process
         turn++;
+        int playerIndex = turn % players.Count;
 
         foreach (GameObject card in player.Cards)
         {
             card.SetActive(false);
         }
 
-        if (display)
-            display = invertBool(display);
-        
-        if(turn % dealer.players.Count == dealer.players.IndexOf(player))
-            display = invertBool(display);
+        GameManager.Instance.activePlayer = players[playerIndex];
+        player = players[playerIndex];
 
-        if(display)
-            GameManager.Instance.activePlayer = player;
-
-        ShowHand();
+        ShowHand(player);
         foreach(GameObject card in player.Cards)
             StartCoroutine(CardShake(card));
     }
 
     public void TurnCards()
     {
-        foreach(GameObject card in player.Cards)
+        foreach(Player player in players)
         {
-            StartCoroutine(CardRotate(card));
-        }
-    }
-
-    //public void CardPick(GameObject card)
-    //{
-    //    print("PC funkar");
-    //}
-
-    private IEnumerator CardRotate(GameObject card)
-    {
-        float startTime = Time.time;
-        while(Time.time - startTime < 0.48f)
-        {
-            card.transform.Rotate(0, 180 * 2 * Time.fixedDeltaTime, 0);
-            yield return new WaitForFixedUpdate();
+            foreach(GameObject card in player.Cards)
+            {
+                CardRotate(card);
+            }
         }
     }
 
@@ -121,4 +86,11 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForFixedUpdate();
         }
     }
+
+    void CardRotate(GameObject card)
+    {
+        card.transform.DORotate(new Vector3(0, 180, 0), 0.6f, RotateMode.LocalAxisAdd);
+    }
+
+
 }
