@@ -34,13 +34,13 @@ public class PlayerController : MonoBehaviour
         float position = 0.5f;
         if (display)
         {
-            foreach (PlayingCard card in player.Cards)
+            foreach (GameObject card in player.Cards)
             {
                 Vector3 screenScale = new Vector3(Screen.width / player.Cards.Count * position, Screen.height / 5, 0);
                 Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
                 cardPos.z = 0;
-                card.card.transform.position = cardPos;
-                card.card.SetActive(true);
+                card.transform.position = cardPos;
+                card.SetActive(true);
                 position++;
             }
         }
@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour
         // TODO: add observer code to improve the process
         turn++;
 
-        foreach (PlayingCard card in player.Cards)
+        foreach (GameObject card in player.Cards)
         {
-            card.card.SetActive(false);
+            card.SetActive(false);
         }
 
         if (display)
@@ -62,37 +62,45 @@ public class PlayerController : MonoBehaviour
         if(turn % dealer.players.Count == dealer.players.IndexOf(player))
             display = invertBool(display);
 
+        if(display)
+            GameManager.Instance.activePlayer = player;
+
         ShowHand();
-        foreach(PlayingCard card in player.Cards)
+        foreach(GameObject card in player.Cards)
             StartCoroutine(CardShake(card));
     }
 
     public void TurnCards()
     {
-        foreach(PlayingCard card in player.Cards)
+        foreach(GameObject card in player.Cards)
         {
             StartCoroutine(CardRotate(card));
         }
     }
 
-    private IEnumerator CardRotate(PlayingCard card)
+    //public void CardPick(GameObject card)
+    //{
+    //    print("PC funkar");
+    //}
+
+    private IEnumerator CardRotate(GameObject card)
     {
         float startTime = Time.time;
         while(Time.time - startTime < 0.48f)
         {
-            card.card.transform.Rotate(0, 180 * 2 * Time.fixedDeltaTime, 0);
+            card.transform.Rotate(0, 180 * 2 * Time.fixedDeltaTime, 0);
             yield return new WaitForFixedUpdate();
         }
     }
 
-    private IEnumerator CardShake(PlayingCard card)
+    private IEnumerator CardShake(GameObject card)
     {
-        Vector3 originalPos = card.card.transform.position;
+        Vector3 originalPos = card.transform.position;
         float startTime = Time.time;
 
         while(Time.time - startTime < 0.25f)
         {
-            card.card.transform.position = Vector3.MoveTowards(card.card.transform.position,
+            card.transform.position = Vector3.MoveTowards(card.transform.position,
                 new Vector3(0, originalPos.y, originalPos.z), 40 * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }
@@ -102,13 +110,13 @@ public class PlayerController : MonoBehaviour
             Vector3 shakePos = Random.insideUnitSphere * Time.fixedDeltaTime * 5;
             shakePos.y = originalPos.y;
             shakePos.z = originalPos.z;
-            card.card.transform.position = shakePos;
+            card.transform.position = shakePos;
             yield return new WaitForFixedUpdate();
         }
 
         while (Time.time - startTime < 0.75f)
         {
-            card.card.transform.position = Vector3.MoveTowards(card.card.transform.position, 
+            card.transform.position = Vector3.MoveTowards(card.transform.position, 
                 originalPos, 40 * Time.fixedDeltaTime);
             yield return new WaitForFixedUpdate();
         }

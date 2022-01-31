@@ -10,15 +10,13 @@ public class CardDealer : MonoBehaviour
     public List<Player> players = new List<Player>();
 
     GenerateDeck generateDeck;
-    List<PlayingCard> deck;
     List<GameObject> cardPool;
 
     void Start()
     {
-        Application.targetFrameRate = 90;
         generateDeck = GetComponent<GenerateDeck>();
         InstPool(52);
-        deck = generateDeck.Generator(cardPool);
+        generateDeck.Generator(cardPool);
     }
 
     private void InstPool(int amount)
@@ -44,7 +42,8 @@ public class CardDealer : MonoBehaviour
         foreach(Player player in players)
         {
             player.Name = "player" + players.IndexOf(player); // TODO: move this line 
-            player.Cards.Sort((x, y) => x.number.CompareTo(y.number));
+            player.Cards.Sort((x, y) => x.GetComponent<PlayingCard>().number.CompareTo
+            (y.GetComponent<PlayingCard>().number));
         }
 
         //foreach (Player player in players)
@@ -54,11 +53,11 @@ public class CardDealer : MonoBehaviour
         //}
     }
 
-    private PlayingCard Deal()
+    private GameObject Deal()
     {
-        int random = Random.Range(0, deck.Count);
-        PlayingCard card = deck[random];
-        deck.RemoveAt(random);
+        int random = Random.Range(0, cardPool.Count);
+        GameObject card = cardPool[random];
+        cardPool.RemoveAt(random);
         return card;
     }
 

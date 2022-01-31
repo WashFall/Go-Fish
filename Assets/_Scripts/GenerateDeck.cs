@@ -8,18 +8,19 @@ public class GenerateDeck : MonoBehaviour
     private int number = 0;
     private int deckSize = 52;
 
-    public List<PlayingCard> Generator(List<GameObject> Cards)
+    public void Generator(List<GameObject> Cards)
     {
         textures = Resources.LoadAll("Textures");
 
-        List<PlayingCard> deck = new List<PlayingCard>();
         for (int i = 0; i < deckSize; i++)
         {
-            PlayingCard card = new PlayingCard(number, suit, Cards[i]);
-            var texture = System.Array.Find(textures, x => x.name == card.cardName);
-            card.card.GetComponent<MeshRenderer>().material.mainTexture = (Texture2D)texture;
-            deck.Add(card);
+            PlayingCard cardComponent = Cards[i].GetComponent<PlayingCard>();
 
+            cardComponent.number = number;
+            cardComponent.suit = suit;
+            cardComponent.cardName = (suit + "" + number).ToString();
+            var texture = System.Array.Find(textures, x => x.name == cardComponent.cardName);
+            Cards[i].GetComponent<MeshRenderer>().material.mainTexture = (Texture2D)texture;
             number++;
             if(number > 12)
             {
@@ -27,6 +28,5 @@ public class GenerateDeck : MonoBehaviour
                 suit++;
             }
         }
-        return deck;
     }
 }

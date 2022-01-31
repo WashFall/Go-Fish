@@ -7,5 +7,5 @@ using UnityEngine;
 public class Player
 {
     public string Name;
-    public List<PlayingCard> Cards = new List<PlayingCard>();
+    public List<GameObject> Cards = new List<GameObject>();
 }

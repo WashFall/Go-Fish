@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
-    public Vector3 selectedCardPos;
+    public Player activePlayer;
     public GameObject grayScreen;
-    public static GameObject playingCard;
+    public GameObject playingCard;
+    public Vector3 selectedCardPos;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+        Application.targetFrameRate = 90;
     }
 
     public void SelectedCard(GameObject card)
@@ -34,4 +37,16 @@ public class GameManager : MonoBehaviour
         card.transform.position = new Vector3(0,0,-1);
         card.transform.localScale = newScale;
     }
+
+    public void OnCardSelected(GameObject card)
+    {
+        print(card.GetComponent<PlayingCard>().cardName);
+    }
+}
+
+public enum GameState
+{
+    ViewCards,
+    SelectCard,
+
 }
