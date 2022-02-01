@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
         {
             card.SetActive(false);
         }
-
         GameManager.Instance.activePlayer = players[playerIndex];
         player = players[playerIndex];
 
@@ -76,5 +75,37 @@ public class PlayerController : MonoBehaviour
         await Task.WhenAll(tasks);
 
         tasks.Add(card.transform.DOMoveX(originalPos.x, 0.3f).SetEase(Ease.InQuad).AsyncWaitForCompletion());
+    }
+
+    public void StealCards(GameObject card, Player targetedPlayer)
+    {
+        List<int> cardIndex = new List<int>();
+        foreach (GameObject c in targetedPlayer.Cards)
+        {
+            if (c.GetComponent<PlayingCard>().number == card.GetComponent<PlayingCard>().number)
+            {
+                GameManager.Instance.activePlayer.Cards.Add(c);
+
+                GameManager.Instance.activePlayer.Cards.Sort((x, y) => 
+                x.GetComponent<PlayingCard>().number.CompareTo(
+                y.GetComponent<PlayingCard>().number));
+
+                cardIndex.Add(targetedPlayer.Cards.IndexOf(c));
+            }
+        }
+
+        cardIndex.Sort((a, b) => b.CompareTo(a));
+
+        foreach (int i in cardIndex)
+        {
+            targetedPlayer.Cards.RemoveAt(i);
+        }
+
+        foreach(GameObject c in GameManager.Instance.activePlayer.Cards)
+        {
+            card.SetActive(false);
+        }
+
+        ShowHand(GameManager.Instance.activePlayer);
     }
 }

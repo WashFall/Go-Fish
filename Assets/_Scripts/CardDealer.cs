@@ -27,7 +27,7 @@ public class CardDealer : MonoBehaviour
         cardPool = new List<GameObject>();
         for(int i = 0; i < amount; i++)
         {
-            cardPool.Add(Instantiate(Card, new Vector3(-0.00680274004f, -3, 0), transform.rotation));
+            cardPool.Add(Instantiate(Card, new Vector3(-0.00680274004f, -3, 0), Quaternion.Euler(0, 1, 0)));
             cardPool[i].SetActive(false);
         }
     }
@@ -44,7 +44,7 @@ public class CardDealer : MonoBehaviour
 
         foreach(Player player in players)
         {
-            player.Name = "player" + players.IndexOf(player); // TODO: move this line 
+            player.Name = "player" + players.IndexOf(player);
             player.Cards.Sort((x, y) => x.GetComponent<PlayingCard>().number.CompareTo
             (y.GetComponent<PlayingCard>().number));
         }

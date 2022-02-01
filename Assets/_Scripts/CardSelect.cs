@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class CardSelect : MonoBehaviour
 {
-    PlayerController playerController;
     Vector3 cardScale;
     bool large = false;
     private delegate void OnCardSelect(GameObject card);
@@ -27,11 +26,10 @@ public class CardSelect : MonoBehaviour
         }
         else if(Physics.Raycast(ray,out hit) && large)
         {
-            //transform.localScale = cardScale;
-            //transform.position = GameManager.Instance.selectedCardPos;
             transform.DOMove(GameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
             transform.DOScale(cardScale, 0.2f);
             large = false;
+            GameManager.Instance.buttonPanel.SetActive(false);
             GameManager.Instance.selectedCard = null;
             GameManager.Instance.grayScreen.SetActive(false);
         }
