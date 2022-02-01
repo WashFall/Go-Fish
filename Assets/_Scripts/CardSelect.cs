@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class CardSelect : MonoBehaviour
@@ -13,7 +12,6 @@ public class CardSelect : MonoBehaviour
     private void Start()
     {
         cardScale = transform.localScale;
-        //onCardSelect += playerController.CardPick;
         onCardSelect += GameManager.Instance.OnCardSelected;
     }
 
@@ -21,7 +19,7 @@ public class CardSelect : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit) && GameManager.Instance.playingCard == null)
+        if (Physics.Raycast(ray, out hit) && GameManager.Instance.selectedCard == null)
         {
             large = true;
             GameManager.Instance.SelectedCard(gameObject);
@@ -29,10 +27,12 @@ public class CardSelect : MonoBehaviour
         }
         else if(Physics.Raycast(ray,out hit) && large)
         {
-            transform.localScale = cardScale;
-            transform.position = GameManager.Instance.selectedCardPos;
+            //transform.localScale = cardScale;
+            //transform.position = GameManager.Instance.selectedCardPos;
+            transform.DOMove(GameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
+            transform.DOScale(cardScale, 0.2f);
             large = false;
-            GameManager.Instance.playingCard = null;
+            GameManager.Instance.selectedCard = null;
             GameManager.Instance.grayScreen.SetActive(false);
         }
     }

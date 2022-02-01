@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,7 +10,7 @@ public class GameManager : MonoBehaviour
     public int gameTurn = 0;
     public Player activePlayer;
     public GameObject grayScreen;
-    public GameObject playingCard;
+    public GameObject selectedCard;
     public Vector3 selectedCardPos;
     public List<Player> players = new List<Player>();
 
@@ -73,13 +71,15 @@ public class GameManager : MonoBehaviour
 
     public void SelectedCard(GameObject card)
     {
-        grayScreen.SetActive(true);
-        playingCard = card;
-        Vector3 oldScale = card.transform.localScale;
-        Vector3 newScale = oldScale * 1.3f;
         selectedCardPos = card.transform.position;
-        card.transform.position = new Vector3(0,0,-1);
-        card.transform.localScale = newScale;
+        card.transform.position = new Vector3(selectedCardPos.x, selectedCardPos.y, -1);
+        grayScreen.SetActive(true);
+        selectedCard = card;
+        Vector3 oldScale = card.transform.localScale;
+        card.transform.DOMove(new Vector3(0, 0, -1), 0.2f).SetEase(Ease.OutSine);
+        card.transform.DOScale(oldScale * 1.3f, 0.2f);
+        //Vector3 newScale = oldScale * 1.3f;
+        //card.transform.localScale = newScale;
     }
 
     public void OnCardSelected(GameObject card)
