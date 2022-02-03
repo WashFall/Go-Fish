@@ -16,11 +16,15 @@ public class GameManager : MonoBehaviour
     public GameObject selectedCard;
     public Vector3 selectedCardPos;
     public List<Player> players = new List<Player>();
-    List<Button> buttons = new List<Button>();
 
     private CardDealer dealer;
+    private CardAnimations animator = new CardAnimations();
+    private CardSteal cardsteal = new CardSteal();
+    private CardShowHand cardShowHand = new CardShowHand();
+    private CardSwitchPlayer cardSwitchPlayer = new CardSwitchPlayer();
     private Player targetedPlayer;
-    private PlayerController playerController;
+    private List<Button> buttons = new List<Button>();
+
     private delegate void PlayerCountListeners(List<Player> players);
     private PlayerCountListeners playerCountListeners;
 
@@ -36,14 +40,13 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Application.targetFrameRate = 90;
-        playerController = GetComponent<PlayerController>();
+        //playerController = GetComponent<PlayerController>();
         dealer = GetComponent<CardDealer>();
         AddPlayerCountListeners();
     }
 
     private void AddPlayerCountListeners()
     {
-        playerCountListeners += playerController.PlayerCountListener;
         playerCountListeners += dealer.PlayerCountListener;
     }
 
@@ -66,22 +69,30 @@ public class GameManager : MonoBehaviour
             button.GetComponent<Button>().onClick.AddListener(() => PlayerChoice(button.GetComponent<Button>()));
         }
         buttons.AddRange(buttonPanel.GetComponentsInChildren<Button>());
-
     }
 
     public void ShowHand()
     {
-        playerController.ShowHand(activePlayer);
+        cardShowHand.ShowHand(activePlayer);
     }
 
     public void TurnCards()
     {
-        playerController.TurnCards();
+        foreach (Player player in players)
+        {
+            foreach (GameObject card in player.Cards)
+            {
+                animator.CardRotate(card);
+            }
+        }
     }
 
     public void SwitchPlayer()
     {
-        playerController.SwitchPlayer(activePlayer, gameTurn);
+        cardSwitchPlayer.SwitchPlayer(activePlayer, gameTurn, players);
+        ShowHand();
+        foreach (GameObject card in activePlayer.Cards)
+            animator.CardShake(card);
         gameTurn++;
     }
 
@@ -98,7 +109,6 @@ public class GameManager : MonoBehaviour
 
     public void OnCardSelected(GameObject card)
     {
-
         bool indexFix = false;
         for (int i = 0; i < players.Count; i++)
         {
@@ -125,16 +135,10 @@ public class GameManager : MonoBehaviour
             if (player.Name == button.GetComponentInChildren<Text>().text)
             { 
                 targetedPlayer = player;
-                playerController.StealCards(selectedCard, targetedPlayer);
-
+                cardsteal.StealCards(selectedCard, targetedPlayer);
             }
         }
+
+        cardShowHand.ShowHand(GameManager.Instance.activePlayer);
     }
-}
-
-public enum GameState
-{
-    ViewCards,
-    SelectCard,
-
 }
