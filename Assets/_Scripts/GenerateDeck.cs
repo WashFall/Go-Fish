@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GenerateDeck : MonoBehaviour
+public class GenerateDeck
 {
     Object[] textures;
     private int suit = 0;

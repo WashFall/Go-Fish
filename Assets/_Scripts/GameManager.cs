@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    public int playerCount;
     public int gameTurn = 0;
     public Player activePlayer;
     public GameObject grayScreen;
@@ -16,17 +17,19 @@ public class GameManager : MonoBehaviour
     public GameObject selectedCard;
     public Vector3 selectedCardPos;
     public List<Player> players = new List<Player>();
+    public GenerateDeck generateDeck = new GenerateDeck();
 
-    private CardDealer dealer;
-    private CardAnimations animator = new CardAnimations();
-    private CardSteal cardsteal = new CardSteal();
-    private CardShowHand cardShowHand = new CardShowHand();
-    private CardSwitchPlayer cardSwitchPlayer = new CardSwitchPlayer();
     private Player targetedPlayer;
+    private SaveData saveData = new SaveData();
+    private JsonSTest jsonSTest = new JsonSTest();
+    private CardSteal cardsteal = new CardSteal();
+    private UpdateHand updateHand = new UpdateHand();
     private List<Button> buttons = new List<Button>();
+    private CardAnimations animator = new CardAnimations();
+    private CardShowHand cardShowHand = new CardShowHand();
+    private PlayerListMaker playerListMaker = new PlayerListMaker();
+    private CardSwitchPlayer cardSwitchPlayer = new CardSwitchPlayer();
 
-    private delegate void PlayerCountListeners(List<Player> players);
-    private PlayerCountListeners playerCountListeners;
 
     private void Awake()
     {
@@ -40,25 +43,30 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Application.targetFrameRate = 90;
-        //playerController = GetComponent<PlayerController>();
-        dealer = GetComponent<CardDealer>();
-        AddPlayerCountListeners();
     }
 
-    private void AddPlayerCountListeners()
+    private void Update()
     {
-        playerCountListeners += dealer.PlayerCountListener;
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            string savedata = saveData.Save(activePlayer);
+            jsonSTest.Save(activePlayer.Name, savedata);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            jsonSTest.Load();
+        }
     }
 
     public void PlayerCount(int playerCount)
     {
-        for (int i = 0; i < playerCount; i++)
-        {
-            Player player = new Player();
-            players.Add(player);
-        }
-        activePlayer = players[0];
-        playerCountListeners(players);
+        this.playerCount = playerCount;
+        players = playerListMaker.PlayerListCreator(playerCount, players);
+        PlayerButtonCreator(playerCount);
+    }
+
+    public void PlayerButtonCreator(int playerCount)
+    {
         var rectTransform = buttonPanel.GetComponent<RectTransform>();
         float panelHeight = rectTransform.sizeDelta.y;
         for (int i = 1; i < playerCount; i++)
@@ -73,26 +81,26 @@ public class GameManager : MonoBehaviour
 
     public void ShowHand()
     {
-        cardShowHand.ShowHand(activePlayer);
+        animator.ShowHand(activePlayer);
     }
 
     public void TurnCards()
     {
-        foreach (Player player in players)
+        foreach (GameObject card in activePlayer.Cards)
         {
-            foreach (GameObject card in player.Cards)
-            {
-                animator.CardRotate(card);
-            }
+            animator.CardRotate(card);
         }
+        
+        foreach (GameObject card in activePlayer.Cards)
+            animator.CardGroup(card);
     }
 
     public void SwitchPlayer()
     {
         cardSwitchPlayer.SwitchPlayer(activePlayer, gameTurn, players);
         ShowHand();
-        foreach (GameObject card in activePlayer.Cards)
-            animator.CardShake(card);
+
+        animator.CardShake(activePlayer);
         gameTurn++;
     }
 
@@ -139,6 +147,14 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        cardShowHand.ShowHand(GameManager.Instance.activePlayer);
+        updateHand.ShowUpdatedHand(activePlayer);
+    }
+
+    public Vector3 CardSpawnLocations(float position)
+    {
+        Vector3 screenScale = new Vector3(Screen.width / activePlayer.Cards.Count * position, Screen.height / 5, 0);
+        Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
+        cardPos.z = 0;
+        return cardPos;
     }
 }

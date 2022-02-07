@@ -454,7 +454,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2065950320}
+      - m_Target: {fileID: 69503823}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -1806,7 +1806,6 @@ GameObject:
   - component: {fileID: 2031788613}
   - component: {fileID: 2031788612}
   - component: {fileID: 2031788615}
-  - component: {fileID: 2031788616}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1826,6 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce96330e42d3bc744a51446951215b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCount: 0
   gameTurn: 0
   activePlayer:
     Name: 
@@ -1863,18 +1863,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Card: {fileID: 514196824256338131, guid: aec17cb6b79cc194f8bbea55856dff6b, type: 3}
---- !u!114 &2031788616
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2031788611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7ccb939b6d79df4987077be3650b0df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2065950320
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,3 +2020,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2065950320}
   m_CullTransparentMesh: 1
+--- !u!1 &2124893743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2124893744}
+  m_Layer: 0
+  m_Name: FireBaseTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2124893744
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2124893743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.52123785, y: -3.5352402, z: 10.902265}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
