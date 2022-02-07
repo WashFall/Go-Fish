@@ -21,6 +21,17 @@ public class CardSteal
             }
         }
 
+        if(cardIndex.Count == 0 && GameManager.Instance.GetComponent<CardDealer>().cardPool.Count > 0)
+        {
+            GameObject newCard = GameManager.Instance.GetComponent<CardDealer>().Deal();
+            newCard.transform.rotation = Quaternion.Euler(0, 1, 0);
+            GameManager.Instance.activePlayer.Cards.Add(newCard);
+
+            GameManager.Instance.activePlayer.Cards.Sort((x, y) => 
+            x.GetComponent<PlayingCard>().number.CompareTo
+            (y.GetComponent<PlayingCard>().number));
+        }
+
         cardIndex.Sort((a, b) => b.CompareTo(a));
 
         foreach (int i in cardIndex)

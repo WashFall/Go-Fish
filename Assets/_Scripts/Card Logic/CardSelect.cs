@@ -26,8 +26,7 @@ public class CardSelect : MonoBehaviour
         }
         else if(Physics.Raycast(ray,out hit) && large)
         {
-            transform.DOMove(GameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
-            transform.DOScale(cardScale, 0.2f);
+            GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
             large = false;
             GameManager.Instance.buttonPanel.SetActive(false);
             GameManager.Instance.selectedCard = null;

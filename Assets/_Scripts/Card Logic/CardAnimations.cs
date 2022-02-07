@@ -41,4 +41,16 @@ public class CardAnimations
     {
         card.transform.DOMoveX(0, 0.3f).SetEase(Ease.InQuad);
     }
+
+    public void CardSelectMove(GameObject card, Vector3 oldScale)
+    {
+        card.transform.DOMove(new Vector3(0, 0, -1), 0.2f).SetEase(Ease.OutSine);
+        card.transform.DOScale(oldScale * 1.3f, 0.2f);
+    }
+
+    public void CardDeSelectMove(GameObject card, Vector3 cardScale)
+    {
+        card.transform.DOMove(GameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
+        card.transform.DOScale(cardScale, 0.2f);
+    }
 }

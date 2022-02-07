@@ -5,7 +5,7 @@ public class CardDealer : MonoBehaviour
 {
     public GameObject Card;
 
-    List<GameObject> cardPool;
+    public List<GameObject> cardPool;
 
     void Start()
     {
@@ -45,7 +45,7 @@ public class CardDealer : MonoBehaviour
 
     }
 
-    private GameObject Deal()
+    public GameObject Deal()
     {
         int random = Random.Range(0, cardPool.Count);
         GameObject card = cardPool[random];

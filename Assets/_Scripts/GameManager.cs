@@ -17,16 +17,15 @@ public class GameManager : MonoBehaviour
     public GameObject selectedCard;
     public Vector3 selectedCardPos;
     public List<Player> players = new List<Player>();
+    public CardAnimations animator = new CardAnimations();
     public GenerateDeck generateDeck = new GenerateDeck();
 
     private Player targetedPlayer;
-    private SaveData saveData = new SaveData();
-    private JsonSTest jsonSTest = new JsonSTest();
+    //private SaveData saveData = new SaveData();
+    //private JsonSTest jsonSTest = new JsonSTest();
     private CardSteal cardsteal = new CardSteal();
     private UpdateHand updateHand = new UpdateHand();
     private List<Button> buttons = new List<Button>();
-    private CardAnimations animator = new CardAnimations();
-    private CardShowHand cardShowHand = new CardShowHand();
     private PlayerListMaker playerListMaker = new PlayerListMaker();
     private CardSwitchPlayer cardSwitchPlayer = new CardSwitchPlayer();
 
@@ -45,18 +44,18 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 90;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            string savedata = saveData.Save(activePlayer);
-            jsonSTest.Save(activePlayer.Name, savedata);
-        }
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            jsonSTest.Load();
-        }
-    }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.S))
+    //    {
+    //        string savedata = saveData.Save(activePlayer);
+    //        jsonSTest.Save(activePlayer.Name, savedata);
+    //    }
+    //    if (Input.GetKeyDown(KeyCode.L))
+    //    {
+    //        jsonSTest.Load();
+    //    }
+    //}
 
     public void PlayerCount(int playerCount)
     {
@@ -111,8 +110,7 @@ public class GameManager : MonoBehaviour
         card.transform.position = new Vector3(selectedCardPos.x, selectedCardPos.y, -1);
         grayScreen.SetActive(true);
         Vector3 oldScale = card.transform.localScale;
-        card.transform.DOMove(new Vector3(0, 0, -1), 0.2f).SetEase(Ease.OutSine);
-        card.transform.DOScale(oldScale * 1.3f, 0.2f);
+        animator.CardSelectMove(card, oldScale);
     }
 
     public void OnCardSelected(GameObject card)
