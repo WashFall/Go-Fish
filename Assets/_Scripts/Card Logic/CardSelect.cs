@@ -1,4 +1,3 @@
-using DG.Tweening;
 using UnityEngine;
 
 public class CardSelect : MonoBehaviour
@@ -18,19 +17,28 @@ public class CardSelect : MonoBehaviour
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit) && GameManager.Instance.selectedCard == null)
+        if(GameManager.Instance.state == GameState.RoundActive)
         {
-            large = true;
-            GameManager.Instance.SelectedCard(gameObject);
-            onCardSelect(gameObject);
+            if (Physics.Raycast(ray, out hit) && GameManager.Instance.selectedCard == null)
+            {
+                large = true;
+                GameManager.Instance.SelectedCard(gameObject);
+                onCardSelect(gameObject);
+            }
+            else if(Physics.Raycast(ray,out hit) && large)
+            {
+                DeselectCard();
+            }
         }
-        else if(Physics.Raycast(ray,out hit) && large)
-        {
-            GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
-            large = false;
-            GameManager.Instance.buttonPanel.SetActive(false);
-            GameManager.Instance.selectedCard = null;
-            GameManager.Instance.grayScreen.SetActive(false);
-        }
+    }
+
+    public void DeselectCard()
+    {
+        GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
+        large = false;
+        GameManager.Instance.doneButton.SetActive(true);
+        GameManager.Instance.buttonPanel.SetActive(false);
+        GameManager.Instance.selectedCard = null;
+        GameManager.Instance.grayScreen.SetActive(false);
     }
 }

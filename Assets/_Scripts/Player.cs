@@ -7,4 +7,5 @@ public class Player
 {
     public string Name;
     public List<GameObject> Cards = new List<GameObject>();
+    public int Points = 0;
 }

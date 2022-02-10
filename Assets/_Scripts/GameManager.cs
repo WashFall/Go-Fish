@@ -1,7 +1,8 @@
 using System.Collections.Generic;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+
+public enum GameState { GameSetup, RoundActive, RoundEnd, WinState }
 
 public class GameManager : MonoBehaviour
 {
@@ -10,8 +11,12 @@ public class GameManager : MonoBehaviour
 
     public int playerCount;
     public int gameTurn = 0;
+    public GameState state;
+    public Text scoreText;
     public Player activePlayer;
+    public GameObject newCard;
     public GameObject grayScreen;
+    public GameObject doneButton;
     public GameObject buttonPanel;
     public GameObject playerButton;
     public GameObject selectedCard;
@@ -24,6 +29,7 @@ public class GameManager : MonoBehaviour
     //private SaveData saveData = new SaveData();
     //private JsonSTest jsonSTest = new JsonSTest();
     private CardSteal cardsteal = new CardSteal();
+    private PointGain pointGain = new PointGain();
     private UpdateHand updateHand = new UpdateHand();
     private List<Button> buttons = new List<Button>();
     private PlayerListMaker playerListMaker = new PlayerListMaker();
@@ -42,20 +48,38 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         Application.targetFrameRate = 90;
+        state = GameState.GameSetup;
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.S))
-    //    {
-    //        string savedata = saveData.Save(activePlayer);
-    //        jsonSTest.Save(activePlayer.Name, savedata);
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.L))
-    //    {
-    //        jsonSTest.Load();
-    //    }
-    //}
+    public void UpdateGameState(GameState newState)
+    {
+        state = newState;
+
+        switch (newState)
+        {
+            case GameState.GameSetup:
+                break;
+            case GameState.RoundActive:
+                break;
+            case GameState.RoundEnd:
+                break;
+            case GameState.WinState:
+                break;
+        }
+    }
+
+        //private void Update()
+        //{
+        //    if (Input.GetKeyDown(KeyCode.S))
+        //    {
+        //        string savedata = saveData.Save(activePlayer);
+        //        jsonSTest.Save(activePlayer.Name, savedata);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.L))
+        //    {
+        //        jsonSTest.Load();
+        //    }
+        //}
 
     public void PlayerCount(int playerCount)
     {
@@ -80,7 +104,9 @@ public class GameManager : MonoBehaviour
 
     public void ShowHand()
     {
+        UpdateGameState(GameState.RoundActive);
         animator.ShowHand(activePlayer);
+        scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
     }
 
     public void TurnCards()
@@ -109,6 +135,7 @@ public class GameManager : MonoBehaviour
         selectedCardPos = card.transform.position;
         card.transform.position = new Vector3(selectedCardPos.x, selectedCardPos.y, -1);
         grayScreen.SetActive(true);
+        doneButton.SetActive(false);
         Vector3 oldScale = card.transform.localScale;
         animator.CardSelectMove(card, oldScale);
     }
@@ -136,16 +163,22 @@ public class GameManager : MonoBehaviour
 
     public void PlayerChoice(Button button)
     {
+        int oldPoints = activePlayer.Points;
         foreach (Player player in players)
         {
             if (player.Name == button.GetComponentInChildren<Text>().text)
             { 
                 targetedPlayer = player;
-                cardsteal.StealCards(selectedCard, targetedPlayer);
+                newCard = cardsteal.StealCards(selectedCard, targetedPlayer);
             }
         }
 
+        activePlayer.Points += pointGain.CheckIfFourCards(newCard);
         updateHand.ShowUpdatedHand(activePlayer);
+        if(state == GameState.RoundEnd || activePlayer.Points > oldPoints)
+            selectedCard.GetComponent<CardSelect>().DeselectCard();
+
+        scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
     }
 
     public Vector3 CardSpawnLocations(float position)
