@@ -109,6 +109,9 @@ public class GameManager : MonoBehaviour
         
         foreach (GameObject card in activePlayer.Cards)
             animator.CardGroup(card);
+
+        int nextPlayer = (gameTurn + 1) % players.Count;
+        scoreText.text = players[nextPlayer].Name + " Score: " + players[nextPlayer].Points;
     }
 
     public void SwitchPlayer()

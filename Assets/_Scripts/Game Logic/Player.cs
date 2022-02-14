@@ -10,18 +10,18 @@ public class Player
     public int Points = 0;
 }
 
-[Serializable]
-public class UserInfo
-{
-    public string UserEmail;
-    public string UserPassword;
-    public string UserName;
-}
+//[Serializable]
+//public class UserInfo
+//{
+//    public string UserEmail;
+//    public string UserPassword;
+//    public string UserName;
+//}
 
-[Serializable]
-public class GameInfo
-{
-    public List<Player> Players;
-    public string GameID;
-    public int GameTurn;
-}
+//[Serializable]
+//public class GameInfo
+//{
+//    public List<Player> Players;
+//    public string GameID;
+//    public int GameTurn;
+//}
