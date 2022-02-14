@@ -36,6 +36,11 @@ public class CardSteal
             returnCard = newCard;
             GameManager.Instance.state = GameState.RoundEnd;
         }
+        else if (cardIndex.Count == 0 && GameManager.Instance.GetComponent<CardDealer>().cardPool.Count == 0)
+        {
+            returnCard = null;
+            GameManager.Instance.state = GameState.RoundEnd;
+        }
 
         cardIndex.Sort((a, b) => b.CompareTo(a));
 

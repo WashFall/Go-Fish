@@ -1407,7 +1407,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2031788612}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: PlayerCount
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1823,6 +1823,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce96330e42d3bc744a51446951215b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  newCard: {fileID: 0}
+  selectedCard: {fileID: 0}
+  selectedCardPos: {x: 0, y: 0, z: 0}
   playerCount: 0
   gameTurn: 0
   state: 0
@@ -1831,13 +1834,10 @@ MonoBehaviour:
     Name: 
     Cards: []
     Points: 0
-  newCard: {fileID: 0}
   grayScreen: {fileID: 1127942139}
   doneButton: {fileID: 69503823}
   buttonPanel: {fileID: 617960173}
   playerButton: {fileID: 7055456680307765976, guid: bf91a86c47e308948a6dfea291caf5c6, type: 3}
-  selectedCard: {fileID: 0}
-  selectedCardPos: {x: 0, y: 0, z: 0}
   players: []
 --- !u!4 &2031788613
 Transform:
@@ -1865,5 +1865,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e97df46881ecb443a4db166985c35ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Card: {fileID: 514196824256338131, guid: aec17cb6b79cc194f8bbea55856dff6b, type: 3}
+  Card: {fileID: 8512055242630732787, guid: 8597d4515e63a7242a96da12948ed264, type: 3}
   cardPool: []

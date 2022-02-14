@@ -11,22 +11,25 @@ public class CardAnimations
     public void ShowHand(Player activePlayer)
     {
         float position = 0.5f;
+        int zPos = activePlayer.Cards.Count;
         foreach (GameObject card in activePlayer.Cards)
         {
-            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position);
+            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position, zPos);
             card.SetActive(true);
             card.transform.DOMove(cardPos, 0.3f).SetEase(Ease.InQuad);
             CardRotate(card);
             position++;
+            zPos--;
         }
     }
 
     public void CardShake(Player activePlayer)
     {
         float position = 0.5f;
+        int zPos = activePlayer.Cards.Count;
         foreach (GameObject card in activePlayer.Cards)
         {
-            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position);
+            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position, zPos);
             Sequence animationSequence = DOTween.Sequence();
 
             //animationSequence.Append(card.transform.DOShakePosition(0.1f, 0.9f));
@@ -34,6 +37,7 @@ public class CardAnimations
 
             animationSequence.Play();
             position++;
+            zPos--;
         }
     }
 

@@ -9,18 +9,22 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance { get { return _instance; } }
 
+    [HideInInspector]
+    public GameObject newCard;
+    [HideInInspector]
+    public GameObject selectedCard;
+    [HideInInspector]
+    public Vector3 selectedCardPos;
+
     public int playerCount;
     public int gameTurn = 0;
     public GameState state;
     public Text scoreText;
     public Player activePlayer;
-    public GameObject newCard;
     public GameObject grayScreen;
     public GameObject doneButton;
     public GameObject buttonPanel;
     public GameObject playerButton;
-    public GameObject selectedCard;
-    public Vector3 selectedCardPos;
     public List<Player> players = new List<Player>();
     public CardAnimations animator = new CardAnimations();
     public GenerateDeck generateDeck = new GenerateDeck();
@@ -68,22 +72,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        //private void Update()
-        //{
-        //    if (Input.GetKeyDown(KeyCode.S))
-        //    {
-        //        string savedata = saveData.Save(activePlayer);
-        //        jsonSTest.Save(activePlayer.Name, savedata);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.L))
-        //    {
-        //        jsonSTest.Load();
-        //    }
-        //}
-
-    public void PlayerCount(int playerCount)
+    public void PlayerCount()
     {
-        this.playerCount = playerCount;
+        this.playerCount = LocalPlayMenu.playerAmount;
         players = playerListMaker.PlayerListCreator(playerCount, players);
         PlayerButtonCreator(playerCount);
     }
@@ -173,7 +164,8 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        activePlayer.Points += pointGain.CheckIfFourCards(newCard);
+        if(newCard != null)
+            activePlayer.Points += pointGain.CheckIfFourCards(newCard);
         updateHand.ShowUpdatedHand(activePlayer);
         if(state == GameState.RoundEnd || activePlayer.Points > oldPoints)
             selectedCard.GetComponent<CardSelect>().DeselectCard();
@@ -181,11 +173,11 @@ public class GameManager : MonoBehaviour
         scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
     }
 
-    public Vector3 CardSpawnLocations(float position)
+    public Vector3 CardSpawnLocations(float position, int zPos)
     {
         Vector3 screenScale = new Vector3(Screen.width / activePlayer.Cards.Count * position, Screen.height / 5, 0);
         Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
-        cardPos.z = 0;
+        cardPos.z = zPos;
         return cardPos;
     }
 }
