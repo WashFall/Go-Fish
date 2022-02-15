@@ -18,8 +18,8 @@ public class GameManager : MonoBehaviour
 
     public int playerCount;
     public int gameTurn = 0;
-    public GameState state;
     public Text scoreText;
+    public GameState state;
     public Player activePlayer;
     public GameObject grayScreen;
     public GameObject doneButton;
@@ -117,8 +117,13 @@ public class GameManager : MonoBehaviour
     public void SwitchPlayer()
     {
         cardSwitchPlayer.SwitchPlayer(activePlayer, gameTurn, players);
+        if (activePlayer.Cards.Count == 0)
+        {
+            newCard = GetComponent<CardDealer>().Deal();
+            activePlayer.Cards.Add(newCard);
+            newCard.SetActive(true);
+        }
         ShowHand();
-
         animator.CardShake(activePlayer);
         gameTurn++;
     }
@@ -173,6 +178,12 @@ public class GameManager : MonoBehaviour
         if(state == GameState.RoundEnd || activePlayer.Points > oldPoints)
             selectedCard.GetComponent<CardSelect>().DeselectCard();
 
+        if (activePlayer.Cards.Count == 0 && GetComponent<CardDealer>().cardPool.Count > 0)
+        {
+            newCard = GetComponent<CardDealer>().Deal();
+            activePlayer.Cards.Add(newCard);
+            newCard.SetActive(true);
+        }
         scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
     }
 

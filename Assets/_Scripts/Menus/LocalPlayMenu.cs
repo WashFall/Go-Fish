@@ -7,12 +7,16 @@ public class LocalPlayMenu : MonoBehaviour
     public InputField playerAmountInput;
     public Button addPlayer;
     public Button removePlayer;
+    public SetNamesMenu setNamesMenu;
 
+    public delegate void SetNamesPress();
+    public SetNamesPress setNamesPress;
     public static int playerAmount = 2;
 
     private void Start()
     {
         playerAmountInput.text = "2";
+        setNamesPress += setNamesMenu.SetNames;
     }
 
     public void AddPlayer()
@@ -31,5 +35,10 @@ public class LocalPlayMenu : MonoBehaviour
     public void PlayLocalGame()
     {
         SceneManager.LoadScene("LocalMultiplayer");
+    }
+
+    public void SetNamesButton()
+    {
+        setNamesPress();
     }
 }
