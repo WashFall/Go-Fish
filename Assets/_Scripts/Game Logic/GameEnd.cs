@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GameEnd : MonoBehaviour
+public class GameEnd
 {
     public void WinCondition()
     {

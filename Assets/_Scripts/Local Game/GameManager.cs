@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using System;
 
 public enum GameState { GameSetup, RoundActive, RoundEnd, WinState }
 
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
     public GameObject doneButton;
     public GameObject buttonPanel;
     public GameObject playerButton;
+    public Text gameResult;
     public List<Player> players = new List<Player>();
     public CardAnimations animator = new CardAnimations();
     public GenerateDeck generateDeck = new GenerateDeck();
@@ -32,10 +35,13 @@ public class GameManager : MonoBehaviour
     private Player targetedPlayer;
     //private SaveData saveData = new SaveData();
     //private JsonSTest jsonSTest = new JsonSTest();
+    private GameEnd gameEnd = new GameEnd();
     private CardSteal cardsteal = new CardSteal();
     private PointGain pointGain = new PointGain();
     private UpdateHand updateHand = new UpdateHand();
     private List<Button> buttons = new List<Button>();
+    private PointCompare pointCompare = new PointCompare();
+    private ScoreDisplay scoreDisplay = new ScoreDisplay();
     private PlayerListMaker playerListMaker = new PlayerListMaker();
     private CardSwitchPlayer cardSwitchPlayer = new CardSwitchPlayer();
 
@@ -68,13 +74,23 @@ public class GameManager : MonoBehaviour
             case GameState.RoundEnd:
                 break;
             case GameState.WinState:
+                SceneManager.LoadScene("WinScreen");
+                pointCompare.GetWinner(players);
                 break;
         }
     }
 
+    public void DeclareWinner()
+    {
+       Text scoreResult = Instantiate(gameResult, Vector3.zero, Quaternion.identity, 
+            GameObject.FindGameObjectWithTag("Canvas").transform);
+        scoreResult.transform.localPosition = Vector3.zero;
+        scoreDisplay.DisplayScore(scoreResult);
+    }
+
     public void PlayerCount()
     {
-        this.playerCount = LocalPlayMenu.playerAmount;
+        playerCount = LocalPlayMenu.playerAmount;
         players = playerListMaker.PlayerListCreator(playerCount, players);
         PlayerButtonCreator(playerCount);
     }
@@ -117,7 +133,7 @@ public class GameManager : MonoBehaviour
     public void SwitchPlayer()
     {
         cardSwitchPlayer.SwitchPlayer(activePlayer, gameTurn, players);
-        if (activePlayer.Cards.Count == 0)
+        if (activePlayer.Cards.Count == 0 && GetComponent<CardDealer>().cardPool.Count > 0)
         {
             newCard = GetComponent<CardDealer>().Deal();
             activePlayer.Cards.Add(newCard);
@@ -130,13 +146,13 @@ public class GameManager : MonoBehaviour
 
     public void SelectedCard(GameObject card)
     {
-        selectedCard = card;
-        selectedCardPos = card.transform.position;
-        card.transform.position = new Vector3(selectedCardPos.x, selectedCardPos.y, -1);
-        grayScreen.SetActive(true);
-        doneButton.SetActive(false);
-        Vector3 oldScale = card.transform.localScale;
-        animator.CardSelectMove(card, oldScale);
+            selectedCard = card;
+            selectedCardPos = card.transform.position;
+            card.transform.position = new Vector3(selectedCardPos.x, selectedCardPos.y, -1);
+            grayScreen.SetActive(true);
+            doneButton.SetActive(false);
+            Vector3 oldScale = card.transform.localScale;
+            animator.CardSelectMove(card, oldScale);   
     }
 
     public void OnCardSelected(GameObject card)
@@ -177,14 +193,30 @@ public class GameManager : MonoBehaviour
         updateHand.ShowUpdatedHand(activePlayer);
         if(state == GameState.RoundEnd || activePlayer.Points > oldPoints)
             selectedCard.GetComponent<CardSelect>().DeselectCard();
+            
 
         if (activePlayer.Cards.Count == 0 && GetComponent<CardDealer>().cardPool.Count > 0)
         {
             newCard = GetComponent<CardDealer>().Deal();
+            newCard.transform.rotation = Quaternion.Euler(0, 0, 0);
             activePlayer.Cards.Add(newCard);
             newCard.SetActive(true);
         }
         scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
+
+        gameEnd.WinCondition();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            activePlayer.Points += 1;
+
+            scoreText.text = activePlayer.Name + " Score: " + activePlayer.Points;
+
+            gameEnd.WinCondition();
+        }
     }
 
     public Vector3 CardSpawnLocations(float position, int zPos)

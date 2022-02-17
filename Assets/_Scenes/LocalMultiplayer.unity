@@ -1828,8 +1828,8 @@ MonoBehaviour:
   selectedCardPos: {x: 0, y: 0, z: 0}
   playerCount: 0
   gameTurn: 0
-  state: 0
   scoreText: {fileID: 66786906}
+  state: 0
   activePlayer:
     Name: 
     Cards: []
@@ -1838,6 +1838,7 @@ MonoBehaviour:
   doneButton: {fileID: 69503823}
   buttonPanel: {fileID: 617960173}
   playerButton: {fileID: 7055456680307765976, guid: bf91a86c47e308948a6dfea291caf5c6, type: 3}
+  gameResult: {fileID: 7048490251438689112, guid: 08d05fcc6c8f6c04f9a788b454e2eb67, type: 3}
   players: []
 --- !u!4 &2031788613
 Transform:

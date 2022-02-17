@@ -38,7 +38,6 @@ public class CardDealer : MonoBehaviour
 
         foreach(Player player in GameManager.Instance.players)
         {
-            player.Name = "player" + GameManager.Instance.players.IndexOf(player);
             player.Cards.Sort((x, y) => x.GetComponent<PlayingCard>().number.CompareTo
             (y.GetComponent<PlayingCard>().number));
         }
