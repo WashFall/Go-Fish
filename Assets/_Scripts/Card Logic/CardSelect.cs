@@ -34,11 +34,14 @@ public class CardSelect : MonoBehaviour
 
     public void DeselectCard()
     {
-        GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
-        large = false;
-        GameManager.Instance.doneButton.SetActive(true);
-        GameManager.Instance.buttonPanel.SetActive(false);
-        GameManager.Instance.selectedCard = null;
-        GameManager.Instance.grayScreen.SetActive(false);
+        if(GameManager.Instance.state != GameState.WinState)
+        {
+            GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
+            large = false;
+            GameManager.Instance.doneButton.SetActive(true);
+            GameManager.Instance.buttonPanel.SetActive(false);
+            GameManager.Instance.selectedCard = null;
+            GameManager.Instance.grayScreen.SetActive(false);
+        }
     }
 }

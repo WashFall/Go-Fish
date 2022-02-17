@@ -30,12 +30,9 @@ public class CardAnimations
         foreach (GameObject card in activePlayer.Cards)
         {
             Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position, zPos);
-            Sequence animationSequence = DOTween.Sequence();
 
-            //animationSequence.Append(card.transform.DOShakePosition(0.1f, 0.9f));
-            animationSequence.Append(card.transform.DOMove(cardPos, 0.3f).SetEase(Ease.InQuad));
+            card.transform.DOMove(cardPos, 0.3f).SetEase(Ease.InQuad);
 
-            animationSequence.Play();
             position++;
             zPos--;
         }

@@ -2,9 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
-
-public enum GameState { GameSetup, RoundActive, RoundEnd, WinState }
 
 public class GameManager : MonoBehaviour
 {
