@@ -5,13 +5,13 @@ public class WinScreenMenu : MonoBehaviour
 {
     public void BackToMainMenu()
     {
-        Destroy(GameManager.Instance);
+        Destroy(LocalGameManager.Instance.gameObject);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void PlayAgain()
     {
-        Destroy(GameManager.Instance);
+        Destroy(LocalGameManager.Instance.gameObject);
         SceneManager.LoadScene("LocalMultiplayer");
     }
 }

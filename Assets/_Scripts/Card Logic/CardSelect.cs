@@ -10,19 +10,19 @@ public class CardSelect : MonoBehaviour
     private void Start()
     {
         cardScale = transform.localScale;
-        onCardSelect += GameManager.Instance.OnCardSelected;
+        onCardSelect += LocalGameManager.Instance.OnCardSelected;
     }
 
     private void OnMouseDown()
     {
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if(GameManager.Instance.state == GameState.RoundActive)
+        if(LocalGameManager.Instance.state == GameState.RoundActive)
         {
-            if (Physics.Raycast(ray, out hit) && GameManager.Instance.selectedCard == null)
+            if (Physics.Raycast(ray, out hit) && LocalGameManager.Instance.selectedCard == null)
             {
                 large = true;
-                GameManager.Instance.SelectedCard(gameObject);
+                LocalGameManager.Instance.SelectedCard(gameObject);
                 onCardSelect(gameObject);
             }
             else if(Physics.Raycast(ray,out hit) && large)
@@ -34,14 +34,14 @@ public class CardSelect : MonoBehaviour
 
     public void DeselectCard()
     {
-        if(GameManager.Instance.state != GameState.WinState)
+        if(LocalGameManager.Instance.state != GameState.WinState)
         {
-            GameManager.Instance.animator.CardDeSelectMove(GameManager.Instance.selectedCard, cardScale);
+            LocalGameManager.Instance.animator.CardDeSelectMove(LocalGameManager.Instance.selectedCard, cardScale);
             large = false;
-            GameManager.Instance.doneButton.SetActive(true);
-            GameManager.Instance.buttonPanel.SetActive(false);
-            GameManager.Instance.selectedCard = null;
-            GameManager.Instance.grayScreen.SetActive(false);
+            LocalGameManager.Instance.doneButton.SetActive(true);
+            LocalGameManager.Instance.buttonPanel.SetActive(false);
+            LocalGameManager.Instance.selectedCard = null;
+            LocalGameManager.Instance.grayScreen.SetActive(false);
         }
     }
 }

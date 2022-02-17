@@ -3,10 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class LocalGameManager : MonoBehaviour
 {
-    private static GameManager _instance;
-    public static GameManager Instance { get { return _instance; } }
+    private static LocalGameManager _instance;
+    public static LocalGameManager Instance { get { return _instance; } }
 
     [HideInInspector]
     public GameObject newCard;

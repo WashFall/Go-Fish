@@ -365,7 +365,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2031788612}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LocalGameManager, Assembly-CSharp
         m_MethodName: TurnCards
         m_Mode: 1
         m_Arguments:
@@ -522,7 +522,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2031788612}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LocalGameManager, Assembly-CSharp
         m_MethodName: SwitchPlayer
         m_Mode: 1
         m_Arguments:
@@ -816,7 +816,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 285.68893, y: 85}
+  m_AnchoredPosition: {x: 340, y: 222}
   m_SizeDelta: {x: 130.27698, y: 252.9864}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &617960175
@@ -1167,7 +1167,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2031788612}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LocalGameManager, Assembly-CSharp
         m_MethodName: PlayerCount
         m_Mode: 1
         m_Arguments:
@@ -1191,7 +1191,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 2031788612}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: LocalGameManager, Assembly-CSharp
         m_MethodName: ShowHand
         m_Mode: 1
         m_Arguments:
@@ -1352,8 +1352,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2031788613}
-  - component: {fileID: 2031788612}
   - component: {fileID: 2031788615}
+  - component: {fileID: 2031788612}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1370,7 +1370,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2031788611}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce96330e42d3bc744a51446951215b72, type: 3}
+  m_Script: {fileID: 11500000, guid: 13f21d85ba1e0954795f05704cb9bf19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   newCard: {fileID: 0}

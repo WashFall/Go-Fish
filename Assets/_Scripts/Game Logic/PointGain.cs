@@ -7,7 +7,7 @@ public class PointGain
     {
         List<GameObject> fourCards = new List<GameObject>();
         int getPoint = 0;
-        foreach(GameObject card in GameManager.Instance.activePlayer.Cards)
+        foreach(GameObject card in LocalGameManager.Instance.activePlayer.Cards)
         {
             if(card.GetComponent<PlayingCard>().number == newCard.GetComponent<PlayingCard>().number)
             {
@@ -20,7 +20,7 @@ public class PointGain
         {
             foreach(GameObject card in fourCards)
             {
-                GameManager.Instance.activePlayer.Cards.Remove(card);
+                LocalGameManager.Instance.activePlayer.Cards.Remove(card);
                 card.SetActive(false);
             }
             return 1;

@@ -8,7 +8,7 @@ public class JsonSTest
     public void Load()
     {
         //Remember to run the jsonSlave program in the background for this to work
-        var request = (HttpWebRequest)WebRequest.Create("http://localhost:8080/" + GameManager.Instance.activePlayer.Name);
+        var request = (HttpWebRequest)WebRequest.Create("http://localhost:8080/" + LocalGameManager.Instance.activePlayer.Name);
         var response = (HttpWebResponse)request.GetResponse();
 
         // Open a stream to the server so we can read the response data

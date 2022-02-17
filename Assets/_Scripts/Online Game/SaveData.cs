@@ -23,7 +23,7 @@ public class SaveData
 
     public void Load()
     {
-        foreach(Player player in GameManager.Instance.players)
+        foreach(Player player in LocalGameManager.Instance.players)
         {
             string loadedString = JsonUtility.ToJson(player);
             var mySaveData = JsonUtility.FromJson<Player>(loadedString);

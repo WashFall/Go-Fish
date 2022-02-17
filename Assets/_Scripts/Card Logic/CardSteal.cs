@@ -11,9 +11,9 @@ public class CardSteal
         {
             if (c.GetComponent<PlayingCard>().number == card.GetComponent<PlayingCard>().number)
             {
-                GameManager.Instance.activePlayer.Cards.Add(c);
+                LocalGameManager.Instance.activePlayer.Cards.Add(c);
 
-                GameManager.Instance.activePlayer.Cards.Sort((x, y) =>
+                LocalGameManager.Instance.activePlayer.Cards.Sort((x, y) =>
                 x.GetComponent<PlayingCard>().number.CompareTo(
                 y.GetComponent<PlayingCard>().number));
 
@@ -23,23 +23,23 @@ public class CardSteal
             }
         }
 
-        if(cardIndex.Count == 0 && GameManager.Instance.GetComponent<CardDealer>().cardPool.Count > 0)
+        if(cardIndex.Count == 0 && LocalGameManager.Instance.GetComponent<CardDealer>().cardPool.Count > 0)
         {
-            GameObject newCard = GameManager.Instance.GetComponent<CardDealer>().Deal();
+            GameObject newCard = LocalGameManager.Instance.GetComponent<CardDealer>().Deal();
             newCard.transform.rotation = Quaternion.Euler(0, 1, 0);
-            GameManager.Instance.activePlayer.Cards.Add(newCard);
+            LocalGameManager.Instance.activePlayer.Cards.Add(newCard);
 
-            GameManager.Instance.activePlayer.Cards.Sort((x, y) => 
+            LocalGameManager.Instance.activePlayer.Cards.Sort((x, y) => 
             x.GetComponent<PlayingCard>().number.CompareTo
             (y.GetComponent<PlayingCard>().number));
 
             returnCard = newCard;
-            GameManager.Instance.state = GameState.RoundEnd;
+            LocalGameManager.Instance.state = GameState.RoundEnd;
         }
-        else if (cardIndex.Count == 0 && GameManager.Instance.GetComponent<CardDealer>().cardPool.Count == 0)
+        else if (cardIndex.Count == 0 && LocalGameManager.Instance.GetComponent<CardDealer>().cardPool.Count == 0)
         {
             returnCard = null;
-            GameManager.Instance.state = GameState.RoundEnd;
+            LocalGameManager.Instance.state = GameState.RoundEnd;
         }
 
         cardIndex.Sort((a, b) => b.CompareTo(a));
@@ -49,7 +49,7 @@ public class CardSteal
             targetedPlayer.Cards.RemoveAt(i);
         }
 
-        foreach (GameObject c in GameManager.Instance.activePlayer.Cards)
+        foreach (GameObject c in LocalGameManager.Instance.activePlayer.Cards)
         {
             card.SetActive(false);
         }

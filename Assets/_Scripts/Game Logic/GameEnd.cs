@@ -5,14 +5,14 @@ public class GameEnd
     public void WinCondition()
     {
         int scoreCheck = 0;
-        foreach(Player player in GameManager.Instance.players)
+        foreach(Player player in LocalGameManager.Instance.players)
         {
             scoreCheck += player.Points;
         }
 
         if(scoreCheck == 13)
         {
-            GameManager.Instance.UpdateGameState(GameState.WinState);
+            LocalGameManager.Instance.UpdateGameState(GameState.WinState);
         }
     }
 }

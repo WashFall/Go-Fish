@@ -10,7 +10,7 @@ public class CardDealer : MonoBehaviour
     void Start()
     {
         InstPool(52);
-        GameManager.Instance.generateDeck.Generator(cardPool);
+        LocalGameManager.Instance.generateDeck.Generator(cardPool);
     }
 
     private void InstPool(int amount)
@@ -30,13 +30,13 @@ public class CardDealer : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            foreach (Player player in GameManager.Instance.players)
+            foreach (Player player in LocalGameManager.Instance.players)
             {
                 player.Cards.Add(Deal());
             }
         }
 
-        foreach(Player player in GameManager.Instance.players)
+        foreach(Player player in LocalGameManager.Instance.players)
         {
             player.Cards.Sort((x, y) => x.GetComponent<PlayingCard>().number.CompareTo
             (y.GetComponent<PlayingCard>().number));

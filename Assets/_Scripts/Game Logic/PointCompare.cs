@@ -10,6 +10,6 @@ public class PointCompare
         pointOrder.Sort((y, x) => x.Points.CompareTo
         (y.Points));
 
-        GameManager.Instance.activePlayer = pointOrder[0];
+        LocalGameManager.Instance.activePlayer = pointOrder[0];
     }
 }

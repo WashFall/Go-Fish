@@ -6,7 +6,7 @@ public class CallScore : MonoBehaviour
 {
     void Start()
     {
-        GameManager.Instance.DeclareWinner();
+        LocalGameManager.Instance.DeclareWinner();
     }
 
 }

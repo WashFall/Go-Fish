@@ -13,6 +13,6 @@ public class CardSwitchPlayer
             card.SetActive(false);
         }
 
-        GameManager.Instance.activePlayer = players[playerIndex];
+        LocalGameManager.Instance.activePlayer = players[playerIndex];
     }
 }

@@ -243,7 +243,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &728668739
 GameObject:
@@ -340,7 +340,7 @@ RectTransform:
   - {fileID: 1841269243}
   - {fileID: 1148106563}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -774,81 +774,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1841269242}
   m_CullTransparentMesh: 1
---- !u!1 &1870811050
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1870811053}
-  - component: {fileID: 1870811052}
-  - component: {fileID: 1870811051}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1870811051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870811050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e97df46881ecb443a4db166985c35ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Card: {fileID: 8512055242630732787, guid: 8597d4515e63a7242a96da12948ed264, type: 3}
-  cardPool: []
---- !u!114 &1870811052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870811050}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce96330e42d3bc744a51446951215b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  newCard: {fileID: 0}
-  selectedCard: {fileID: 0}
-  selectedCardPos: {x: 0, y: 0, z: 0}
-  playerCount: 0
-  gameTurn: 0
-  scoreText: {fileID: 0}
-  state: 0
-  activePlayer:
-    Name: 
-    Cards: []
-    Points: 0
-  grayScreen: {fileID: 0}
-  doneButton: {fileID: 0}
-  buttonPanel: {fileID: 0}
-  playerButton: {fileID: 7055456680307765976, guid: bf91a86c47e308948a6dfea291caf5c6, type: 3}
-  gameResult: {fileID: 7048490251438689112, guid: 08d05fcc6c8f6c04f9a788b454e2eb67, type: 3}
-  players: []
---- !u!4 &1870811053
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1870811050}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.021626681, y: -1.2433916, z: -2.5009346}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2131588652
 GameObject:
   m_ObjectHideFlags: 0

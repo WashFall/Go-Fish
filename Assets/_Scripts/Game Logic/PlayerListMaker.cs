@@ -12,19 +12,19 @@ public class PlayerListMaker
 
         foreach(Player player in players)
         {
-            player.Name = "Player " + (GameManager.Instance.players.IndexOf(player) + 1);
+            player.Name = "Player " + (LocalGameManager.Instance.players.IndexOf(player) + 1);
         }
 
         if(SetNamesMenu.names.Count > 0)
         {
-            for(int i = 0; i < SetNamesMenu.names.Count; i++)
+            for(int i = 0; i < playerCount; i++)
             {
                 if(SetNamesMenu.names[i] != "")
                     players[i].Name = SetNamesMenu.names[i];
             }
         }
 
-        GameManager.Instance.activePlayer = players[0];
+        LocalGameManager.Instance.activePlayer = players[0];
         return players;
     }
 }

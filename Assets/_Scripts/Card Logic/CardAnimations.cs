@@ -14,7 +14,7 @@ public class CardAnimations
         int zPos = activePlayer.Cards.Count;
         foreach (GameObject card in activePlayer.Cards)
         {
-            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position, zPos);
+            Vector3 cardPos = LocalGameManager.Instance.CardSpawnLocations(position, zPos);
             card.SetActive(true);
             card.transform.DOMove(cardPos, 0.3f).SetEase(Ease.InQuad);
             CardRotate(card);
@@ -29,7 +29,7 @@ public class CardAnimations
         int zPos = activePlayer.Cards.Count;
         foreach (GameObject card in activePlayer.Cards)
         {
-            Vector3 cardPos = GameManager.Instance.CardSpawnLocations(position, zPos);
+            Vector3 cardPos = LocalGameManager.Instance.CardSpawnLocations(position, zPos);
 
             card.transform.DOMove(cardPos, 0.3f).SetEase(Ease.InQuad);
 
@@ -51,7 +51,7 @@ public class CardAnimations
 
     public void CardDeSelectMove(GameObject card, Vector3 cardScale)
     {
-        card.transform.DOMove(GameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
+        card.transform.DOMove(LocalGameManager.Instance.selectedCardPos, 0.2f).SetEase(Ease.OutSine);
         card.transform.DOScale(cardScale, 0.2f);
     }
 }

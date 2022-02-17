@@ -12,8 +12,8 @@ public class UpdateHand
             Vector3 cardPos = Camera.main.ScreenToWorldPoint(screenScale);
             cardPos.z = zPos;
             card.SetActive(true);
-            if(card == GameManager.Instance.selectedCard)
-                GameManager.Instance.selectedCardPos = cardPos;
+            if(card == LocalGameManager.Instance.selectedCard)
+                LocalGameManager.Instance.selectedCardPos = cardPos;
             else
                 card.transform.position = cardPos;
             position++;
