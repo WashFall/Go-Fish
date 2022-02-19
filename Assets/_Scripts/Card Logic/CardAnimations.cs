@@ -8,7 +8,7 @@ public class CardAnimations
         card.transform.DORotate(new Vector3(0, 180, 0), 0.5f, RotateMode.LocalAxisAdd);
     }
 
-    public void ShowHand(Player activePlayer)
+    public void ShowHand(PlayerData activePlayer)
     {
         float position = 0.5f;
         int zPos = activePlayer.Cards.Count;
@@ -23,7 +23,7 @@ public class CardAnimations
         }
     }
 
-    public void CardShake(Player activePlayer)
+    public void CardShake(PlayerData activePlayer)
     {
         float position = 0.5f;
         int zPos = activePlayer.Cards.Count;

@@ -30,13 +30,13 @@ public class CardDealer : MonoBehaviour
     {
         for (int i = 0; i < 7; i++)
         {
-            foreach (Player player in LocalGameManager.Instance.players)
+            foreach (PlayerData player in LocalGameManager.Instance.players)
             {
                 player.Cards.Add(Deal());
             }
         }
 
-        foreach(Player player in LocalGameManager.Instance.players)
+        foreach(PlayerData player in LocalGameManager.Instance.players)
         {
             player.Cards.Sort((x, y) => x.GetComponent<PlayingCard>().number.CompareTo
             (y.GetComponent<PlayingCard>().number));

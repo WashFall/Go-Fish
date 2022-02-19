@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CardSteal
 {
-    public GameObject StealCards(GameObject card, Player targetedPlayer)
+    public GameObject StealCards(GameObject card, PlayerData targetedPlayer)
     {
         List<int> cardIndex = new List<int>();
         GameObject returnCard = null;

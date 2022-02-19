@@ -21,7 +21,7 @@ public class JsonSTest
                 var jsonData = reader.ReadToEnd();
 
                 // Convert the JSON body into something useful
-                var playerInfo = JsonUtility.FromJson<Player>(jsonData);
+                var playerInfo = JsonUtility.FromJson<PlayerData>(jsonData);
 
                 // Create the player and move it to the location stored in the JSON body
                 Debug.Log(playerInfo);

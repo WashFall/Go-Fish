@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class UpdateHand
 {
-    public void ShowUpdatedHand(Player activePlayer)
+    public void ShowUpdatedHand(PlayerData activePlayer)
     {
         float position = 0.5f;
         int zPos = activePlayer.Cards.Count;

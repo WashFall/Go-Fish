@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class CardSwitchPlayer
 {
-    public void SwitchPlayer(Player player, int turn, List<Player> players)
+    public void SwitchPlayer(PlayerData player, int turn, List<PlayerData> players)
     {
         turn++;
         int playerIndex = turn % players.Count;

@@ -4,9 +4,12 @@ using Firebase.Auth;
 using Firebase.Database;
 using Firebase.Extensions;
 
-public class FirebaseTest : MonoBehaviour
+public class FirebaseManager : MonoBehaviour
 {
     FirebaseAuth auth;
+
+    public string email;
+    public string password;
 
     void Start()
     {
@@ -26,6 +29,11 @@ public class FirebaseTest : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.D))
             DataTest(auth.CurrentUser.UserId, Random.Range(0, 100).ToString());
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            SignOut();
+        }
     }
 
     private void AnonymousSignIn()
@@ -57,6 +65,23 @@ public class FirebaseTest : MonoBehaviour
         });
     }
 
+    public void NewUserEmail(string email)
+    {
+        this.email = email;
+    }
+    public void NewUserPassword(string password)
+    {
+        this.password = password;
+    }
+
+    public void NewUserSubmit()
+    {
+        if (email == null || password == null)
+            return;
+        else
+            RegisterNewUser(email, password);
+    }
+
     private void RegisterNewUser(string email, string password)
     {
         Debug.Log("Starting Registration");
@@ -73,6 +98,14 @@ public class FirebaseTest : MonoBehaviour
                   newUser.DisplayName, newUser.UserId);
             }
         });
+    }
+
+    public void UserSignIn()
+    {
+        if (email == null || password == null)
+            return;
+        else
+            SignIn(email, password);
     }
 
     private void SignIn(string email, string password)

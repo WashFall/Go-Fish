@@ -19,17 +19,17 @@ public class LocalGameManager : MonoBehaviour
     public int gameTurn = 0;
     public Text scoreText;
     public GameState state;
-    public Player activePlayer;
+    public PlayerData activePlayer;
     public GameObject grayScreen;
     public GameObject doneButton;
     public GameObject buttonPanel;
     public GameObject playerButton;
     public Text gameResult;
-    public List<Player> players = new List<Player>();
+    public List<PlayerData> players = new List<PlayerData>();
     public CardAnimations animator = new CardAnimations();
     public GenerateDeck generateDeck = new GenerateDeck();
 
-    private Player targetedPlayer;
+    private PlayerData targetedPlayer;
     //private SaveData saveData = new SaveData();
     //private JsonSTest jsonSTest = new JsonSTest();
     private GameEnd gameEnd = new GameEnd();
@@ -176,7 +176,7 @@ public class LocalGameManager : MonoBehaviour
     public void PlayerChoice(Button button)
     {
         int oldPoints = activePlayer.Points;
-        foreach (Player player in players)
+        foreach (PlayerData player in players)
         {
             if (player.Name == button.GetComponentInChildren<Text>().text)
             { 

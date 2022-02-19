@@ -2,15 +2,15 @@ using System.Collections.Generic;
 
 public class PlayerListMaker
 {
-    public List<Player> PlayerListCreator(int playerCount, List<Player> players)
+    public List<PlayerData> PlayerListCreator(int playerCount, List<PlayerData> players)
     {
         for (int i = 0; i < playerCount; i++)
         {
-            Player player = new Player();
+            PlayerData player = new PlayerData();
             players.Add(player);
         }
 
-        foreach(Player player in players)
+        foreach(PlayerData player in players)
         {
             player.Name = "Player " + (LocalGameManager.Instance.players.IndexOf(player) + 1);
         }

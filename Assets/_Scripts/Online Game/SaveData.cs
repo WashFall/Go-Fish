@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveData
 {
-    public string Save(Player activePlayer)
+    public string Save(PlayerData activePlayer)
     {
         string jsonString = JsonUtility.ToJson(activePlayer);
         SaveToFile(activePlayer.Name, jsonString);
@@ -23,10 +23,10 @@ public class SaveData
 
     public void Load()
     {
-        foreach(Player player in LocalGameManager.Instance.players)
+        foreach(PlayerData player in LocalGameManager.Instance.players)
         {
             string loadedString = JsonUtility.ToJson(player);
-            var mySaveData = JsonUtility.FromJson<Player>(loadedString);
+            var mySaveData = JsonUtility.FromJson<PlayerData>(loadedString);
             Debug.Log(mySaveData.Name);
         }
     }

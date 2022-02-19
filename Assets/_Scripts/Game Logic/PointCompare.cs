@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class PointCompare
 {
-    public void GetWinner(List<Player> players)
+    public void GetWinner(List<PlayerData> players)
     {
-        List<Player> pointOrder = players;
+        List<PlayerData> pointOrder = players;
         
         pointOrder.Sort((y, x) => x.Points.CompareTo
         (y.Points));

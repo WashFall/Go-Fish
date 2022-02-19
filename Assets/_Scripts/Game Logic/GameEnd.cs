@@ -5,7 +5,7 @@ public class GameEnd
     public void WinCondition()
     {
         int scoreCheck = 0;
-        foreach(Player player in LocalGameManager.Instance.players)
+        foreach(PlayerData player in LocalGameManager.Instance.players)
         {
             scoreCheck += player.Points;
         }
