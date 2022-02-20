@@ -1,15 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 using Firebase;
 using Firebase.Auth;
-using Firebase.Database;
 using Firebase.Extensions;
 
 public class FirebaseManager : MonoBehaviour
 {
     FirebaseAuth auth;
 
-    public string email;
-    public string password;
+    public Button loginButton;
+    public Button createAccountButton;
+    public Button playAnonymousButton;
+
+    public TMP_InputField loginEmail;
+    public TMP_InputField loginPassword;
+    public TMP_InputField createEmail;
+    public TMP_InputField createPassword;
+    public TMP_InputField confirmPassword;
 
     void Start()
     {
@@ -20,23 +28,16 @@ public class FirebaseManager : MonoBehaviour
 
             auth = FirebaseAuth.DefaultInstance;
         });
+
+        loginButton.onClick.AddListener(() => Login(loginEmail.text, loginPassword.text));
+
+        createAccountButton.onClick.AddListener(() =>
+            CreateAccount(createEmail.text, createPassword.text, confirmPassword.text));
+
+        playAnonymousButton.onClick.AddListener(() => AnonymousLogin());
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-            AnonymousSignIn();
-
-        if (Input.GetKeyDown(KeyCode.D))
-            DataTest(auth.CurrentUser.UserId, Random.Range(0, 100).ToString());
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            SignOut();
-        }
-    }
-
-    private void AnonymousSignIn()
+    private void AnonymousLogin()
     {
         auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
@@ -52,39 +53,16 @@ public class FirebaseManager : MonoBehaviour
         });
     }
 
-    private void DataTest(string userID, string data)
-    {
-        Debug.Log("Trying to write data...");
-        var db = FirebaseDatabase.DefaultInstance;
-        db.RootReference.Child("users").Child(userID).SetValueAsync(data).ContinueWithOnMainThread(task =>
-        {
-            if (task.Exception != null)
-                Debug.LogWarning(task.Exception);
-            else
-                Debug.Log("DataTestWrite: Complete");
-        });
-    }
-
-    public void NewUserEmail(string email)
-    {
-        this.email = email;
-    }
-    public void NewUserPassword(string password)
-    {
-        this.password = password;
-    }
-
-    public void NewUserSubmit()
-    {
-        if (email == null || password == null)
-            return;
-        else
-            RegisterNewUser(email, password);
-    }
-
-    private void RegisterNewUser(string email, string password)
+    private void CreateAccount(string email, string password, string passwordCheck)
     {
         Debug.Log("Starting Registration");
+
+        if(password != passwordCheck)
+        {
+            Debug.LogError("Passwords not the same");
+            return;
+        }
+
         auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
         {
             if (task.Exception != null)
@@ -95,20 +73,12 @@ public class FirebaseManager : MonoBehaviour
             {
                 FirebaseUser newUser = task.Result;
                 Debug.LogFormat("User Registerd: {0} ({1})",
-                  newUser.DisplayName, newUser.UserId);
+                  newUser.Email, newUser.UserId);
             }
         });
     }
 
-    public void UserSignIn()
-    {
-        if (email == null || password == null)
-            return;
-        else
-            SignIn(email, password);
-    }
-
-    private void SignIn(string email, string password)
+    private void Login(string email, string password)
     {
         auth.SignInWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task =>
         {
@@ -120,12 +90,12 @@ public class FirebaseManager : MonoBehaviour
             {
                 FirebaseUser newUser = task.Result;
                 Debug.LogFormat("User signed in successfully: {0} ({1})",
-                  newUser.DisplayName, newUser.UserId);
+                  newUser.Email, newUser.UserId);
             }
         });
     }
 
-    private void SignOut()
+    private void Logout()
     {
         auth.SignOut();
         Debug.Log("User signed out");
