@@ -785,6 +785,7 @@ GameObject:
   - component: {fileID: 268167920}
   - component: {fileID: 268167922}
   - component: {fileID: 268167921}
+  - component: {fileID: 268167923}
   m_Layer: 5
   m_Name: CreateAccountMenu
   m_TagString: Untagged
@@ -856,6 +857,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 268167919}
   m_CullTransparentMesh: 1
+--- !u!114 &268167923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 268167919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26271817c94382d4eb344dc724b02097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveInputFieldData: 1
 --- !u!1 &296980736
 GameObject:
   m_ObjectHideFlags: 0
@@ -885,8 +899,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e11c7093c1318745b6b292f67fb6d7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  email: 
-  password: 
+  loginButton: {fileID: 874619218}
+  createAccountButton: {fileID: 534464413}
+  playAnonymousButton: {fileID: 443164447}
+  loginEmail: {fileID: 1495560574}
+  loginPassword: {fileID: 33767514}
+  createEmail: {fileID: 716048510}
+  createPassword: {fileID: 260342015}
+  confirmPassword: {fileID: 1807071506}
 --- !u!4 &296980738
 Transform:
   m_ObjectHideFlags: 0
@@ -1035,19 +1055,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 443164448}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 979846894}
-        m_TargetAssemblyTypeName: LoginMenu, Assembly-CSharp
-        m_MethodName: AnonymousPlay
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &443164448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1164,7 +1172,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Username...
+  m_text: Email...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1323,19 +1331,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 534464414}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 296980737}
-        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
-        m_MethodName: NewUserSubmit
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &534464414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1797,6 +1793,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 671405797}
   m_CullTransparentMesh: 1
+--- !u!1 &676608562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 676608564}
+  - component: {fileID: 676608563}
+  m_Layer: 0
+  m_Name: SaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &676608563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676608562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc804ec6668467e4e9e5ed8a7c724e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &676608564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 676608562}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 641.2869, y: 355.85226, z: -41.643986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705072548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1944,7 +1983,7 @@ GameObject:
   - component: {fileID: 716048511}
   - component: {fileID: 716048510}
   m_Layer: 5
-  m_Name: UserNameInput
+  m_Name: EmailInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2130,7 +2169,7 @@ GameObject:
   - component: {fileID: 755028889}
   - component: {fileID: 755028888}
   m_Layer: 5
-  m_Name: CreateAccountText
+  m_Name: NewAccountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2602,19 +2641,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 874619219}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 296980737}
-        m_TargetAssemblyTypeName: FirebaseManager, Assembly-CSharp
-        m_MethodName: UserSignIn
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &874619219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2933,6 +2960,7 @@ GameObject:
   - component: {fileID: 979846893}
   - component: {fileID: 979846892}
   - component: {fileID: 979846894}
+  - component: {fileID: 979846895}
   m_Layer: 5
   m_Name: LoginMenu
   m_TagString: Untagged
@@ -3017,6 +3045,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b2e11db1bcd4ec4a9820cc9b3194800, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &979846895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979846890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26271817c94382d4eb344dc724b02097, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SaveInputFieldData: 1
 --- !u!1 &1024930861
 GameObject:
   m_ObjectHideFlags: 0
@@ -3268,7 +3309,7 @@ GameObject:
   - component: {fileID: 1191876291}
   - component: {fileID: 1191876290}
   m_Layer: 5
-  m_Name: CreateAccountButton
+  m_Name: NewAccountButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3803,7 +3844,7 @@ GameObject:
   - component: {fileID: 1495560575}
   - component: {fileID: 1495560574}
   m_Layer: 5
-  m_Name: UserNameInput
+  m_Name: EmailInput
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4177,7 +4218,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Username...
+  m_text: Email...
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4894,6 +4935,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1825751959}
   m_CullTransparentMesh: 1
+--- !u!1 &1836889811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1836889813}
+  - component: {fileID: 1836889812}
+  m_Layer: 0
+  m_Name: SaveUserData
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1836889812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836889811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7528985f09a4f404297ee5cd924f1428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1836889813
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1836889811}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 641.2869, y: 355.85226, z: -41.643986}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1968578137
 GameObject:
   m_ObjectHideFlags: 0

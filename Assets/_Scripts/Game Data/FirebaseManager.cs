@@ -4,6 +4,7 @@ using TMPro;
 using Firebase;
 using Firebase.Auth;
 using Firebase.Extensions;
+using UnityEngine.SceneManagement;
 
 public class FirebaseManager : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class FirebaseManager : MonoBehaviour
     public TMP_InputField createEmail;
     public TMP_InputField createPassword;
     public TMP_InputField confirmPassword;
+
+    public delegate void SignInHandler();
+    public SignInHandler OnSignIn;
 
     void Start()
     {
@@ -47,8 +51,7 @@ public class FirebaseManager : MonoBehaviour
             else
             {
                 FirebaseUser newUser = task.Result;
-                Debug.LogFormat("User signed in successfully: {0} ({1})",
-                    newUser.DisplayName, newUser.UserId);
+                OnSignIn?.Invoke();
             }
         });
     }
@@ -72,8 +75,7 @@ public class FirebaseManager : MonoBehaviour
             else
             {
                 FirebaseUser newUser = task.Result;
-                Debug.LogFormat("User Registerd: {0} ({1})",
-                  newUser.Email, newUser.UserId);
+                OnSignIn?.Invoke();
             }
         });
     }
@@ -89,15 +91,13 @@ public class FirebaseManager : MonoBehaviour
             else
             {
                 FirebaseUser newUser = task.Result;
-                Debug.LogFormat("User signed in successfully: {0} ({1})",
-                  newUser.Email, newUser.UserId);
+                OnSignIn?.Invoke();
             }
         });
     }
 
-    private void Logout()
+    public void PlayerDataLoaded()
     {
-        auth.SignOut();
-        Debug.Log("User signed out");
+        SceneManager.LoadScene("MainMenu");
     }
 }

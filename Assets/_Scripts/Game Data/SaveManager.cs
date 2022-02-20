@@ -34,6 +34,7 @@ public class SaveManager : MonoBehaviour
             if (task.Exception != null)
                 Debug.LogWarning(task.Exception);
 
+            Debug.Log("1");
             onLoadedDelegate(task.Result.GetRawJsonValue());
         });
     }
@@ -45,6 +46,7 @@ public class SaveManager : MonoBehaviour
             if (task.Exception != null)
                 Debug.LogWarning(task.Exception);
 
+            Debug.Log("2");
             onSaveDelegate?.Invoke();
         });
     }

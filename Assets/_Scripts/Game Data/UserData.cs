@@ -5,7 +5,10 @@ using UnityEngine;
 [Serializable]
 public class UserData
 {
-    public string UserEmail;
-    public string UserPassword;
-    public string UserName;
+    public string Name;
+    public int Wins;
 }
+
+    //public string CardSkin;
+    //public MusicSetting;
+    //public SoundSetting;

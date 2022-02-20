@@ -19,7 +19,7 @@ public class SetNamesMenu : MonoBehaviour
         for (int i = 0; i < LocalPlayMenu.playerAmount; i++)
         {
             GameObject inputField = Instantiate(inputFieldPrefab, inputFieldPanel.transform, false);
-            inputField.transform.localPosition = new Vector3(0, (panelHeight / LocalPlayMenu.playerAmount) * -i, 0);
+            inputField.transform.localPosition = new Vector3(0, (panelHeight / LocalPlayMenu.playerAmount) * i - panelHeight / 2, 0);
             inputFields.Add(inputField);
         }
     }
