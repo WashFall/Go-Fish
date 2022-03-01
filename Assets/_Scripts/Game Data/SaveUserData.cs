@@ -4,7 +4,7 @@ using UnityEngine;
 public class SaveUserData : MonoBehaviour
 {
 	public static UserData data;
-	static string userPath;
+	public static string userPath;
 
 	private void Start()
 	{
