@@ -5,7 +5,7 @@ public class LoginMenu : MonoBehaviour
 {
     public void AnonymousPlay()
     {
-        // TODO: Add anonymous login call
+        FindObjectOfType<FirebaseManager>().AnonymousLogin();
 
         SceneManager.LoadScene("MainMenu");
     }

@@ -41,7 +41,7 @@ public class FirebaseManager : MonoBehaviour
         playAnonymousButton.onClick.AddListener(() => AnonymousLogin());
     }
 
-    private void AnonymousLogin()
+    public void AnonymousLogin()
     {
         auth.SignInAnonymouslyAsync().ContinueWithOnMainThread(task => {
             if (task.Exception != null)
