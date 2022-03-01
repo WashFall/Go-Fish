@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Scenes/WinScreen.unity
     guid: 21aaa9491fbed5c48acae3e744d0cecf
+  - enabled: 1
+    path: Assets/_Scenes/OnlineWaitForPlayers.unity
+    guid: 3974b7db1bac7224b96e117904b21ff8
   m_configObjects: {}
